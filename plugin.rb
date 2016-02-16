@@ -5,6 +5,7 @@ module Plugins
       setup! :loomio_webhooks do |plugin|
         plugin.enabled = true
 
+        plugin.use_class "app/models/webhooks/slack/base"
         plugin.use_class_directory "app/models/webhooks/slack/"
         plugin.use_class "app/models/webhook"
         plugin.use_class "app/services/webhook_service"
