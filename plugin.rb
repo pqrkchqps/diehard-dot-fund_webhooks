@@ -5,10 +5,10 @@ module Plugins
       setup! :loomio_webhooks do |plugin|
         plugin.enabled = true
 
-        plugin.use_class "app/models/webhooks/slack/base"
-        plugin.use_class_directory "app/models/webhooks/slack/"
         plugin.use_class "app/models/webhook"
         plugin.use_class "app/services/webhook_service"
+        plugin.use_class "app/serializers/slack/base_serializer"
+        plugin.use_class_directory "app/serializers/slack/"
         plugin.use_class "app/admin/webhooks"
 
         plugin.use_database_table :webhooks do |table|
@@ -17,6 +17,17 @@ module Plugins
           table.string :uri, null: false
           table.text   :event_types, array: true, default: []
           table.timestamps
+        end
+
+        plugin.extend_class(Group)   { has_many :webhooks, as: :hookable }
+        plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Discussion) do
+          def webhooks
+            Webhook.where("(hookable_type = 'Discussion' AND hookable_id = :id) OR
+                           (hookable_type = 'Group'      AND hookable_id = :group_id)",
+                           id: id, group_id: group_id)
+          end
         end
 
         plugin.use_events do |event_bus|
