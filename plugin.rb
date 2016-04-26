@@ -22,6 +22,7 @@ module Plugins
         plugin.extend_class(Group)   { has_many :webhooks, as: :hookable }
         plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
         plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Vote)    { delegate :webhooks, to: :discussion }
         plugin.extend_class(Discussion) do
           def webhooks
             Webhook.where("(hookable_type = 'Discussion' AND hookable_id = :id) OR

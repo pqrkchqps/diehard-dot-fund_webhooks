@@ -1,25 +1,24 @@
-class Plugins::LoomioWebhooks::Slack::MotionOutcomeCreated < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::LoomioWebhooks::Slack::MotionOutcomeCreatedSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
-    "*#{eventable.name}*\n#{eventable.outcome}\n"
+    "*#{object.name}*\n#{object.outcome}\n"
   end
 
   def attachment_title
-    slack_link_for(object.motion)
+    slack_link_for(object)
   end
 
   def attachment_text
     object.outcome
   end
 
-  def attachment_fields
-    Array(view_it_on_loomio)
-  end
-
   private
 
   def text_options
-    { author: object.outcome_author.name, name: slack_link_for(object) }
+    {
+      author: slack_link_for(object.outcome_author),
+      name:   slack_link_for(object)
+    }
   end
 
 end

@@ -12,14 +12,13 @@ class Plugins::LoomioWebhooks::Slack::MotionClosedSerializer < Plugins::LoomioWe
     object.description
   end
 
-  def attachment_fields
-    Array(view_it_on_loomio)
-  end
-
   private
 
   def text_options
-    { author: object.author.name, name: slack_link_for(object) }
+    {
+      author: slack_link_for(object.author),
+      name:   slack_link_for(object)
+    }
   end
 
 end

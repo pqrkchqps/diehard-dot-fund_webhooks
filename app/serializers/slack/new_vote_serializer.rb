@@ -1,13 +1,5 @@
 class Plugins::LoomioWebhooks::Slack::NewVoteSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
 
-  def text_options
-    {
-      position: I18n.t(:"webhooks.slack.position_verbs.#{object.position}"),
-      proposal: slack_link_for(object.motion),
-      name:     slack_link_for(object.discussion)
-    }
-  end
-
   def attachment_fallback
     "*#{object.position}*\n#{object.statement}\n"
   end
@@ -24,4 +16,19 @@ class Plugins::LoomioWebhooks::Slack::NewVoteSerializer < Plugins::LoomioWebhook
     when "block"   then SiteSettings.colors[:block]
     end
   end
+
+  def attachment_fields
+  end
+
+  private
+
+  def text_options
+    {
+      author:   slack_link_for(object.author),
+      proposal: slack_link_for(object.motion),
+      name:     slack_link_for(object.discussion),
+      position: I18n.t(:"webhooks.slack.position_verbs.#{object.position}")
+    }
+  end
+
 end

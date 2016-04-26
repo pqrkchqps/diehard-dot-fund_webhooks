@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::MotionClosingSoon < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::LoomioWebhooks::Slack::MotionClosingSoonSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.name}*\n#{object.description}\n"
@@ -12,14 +12,12 @@ class Plugins::LoomioWebhooks::Slack::MotionClosingSoon < Plugins::LoomioWebhook
     object.description
   end
 
-  def attachment_fields
-    Array(view_it_on_loomio)
-  end
-
   private
 
   def text_options
-    { author: object.author.name, name: slack_link_for(object) }
+    {
+      name:   slack_link_for(object.discussion)
+    }
   end
 
 end

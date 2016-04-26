@@ -1,9 +1,5 @@
 class Plugins::LoomioWebhooks::Slack::NewMotionSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
 
-  def text_options
-    { name: slack_link_for(object.discussion) }
-  end
-
   def attachment_fallback
     "*#{object.name}*\n#{object.description}\n"
   end
@@ -16,8 +12,13 @@ class Plugins::LoomioWebhooks::Slack::NewMotionSerializer < Plugins::LoomioWebho
     "#{object.description}\n"
   end
 
-  def attachment_fields
-    Array(motion_vote_field)
+  private
+
+  def text_options
+    {
+      author: slack_link_for(object.author),
+      name:   slack_link_for(object.discussion)
+    }
   end
 
 end

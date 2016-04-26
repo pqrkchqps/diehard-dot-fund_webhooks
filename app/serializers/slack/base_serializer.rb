@@ -33,13 +33,15 @@ module Plugins
         def text_options;        end
         def attachment_title;    end
         def attachment_text;     end
-        def attachment_fields;   end
         def attachment_fallback; end
         def attachment_color;    end
+        def attachment_fields
+          [view_it_on_loomio]
+        end
 
         def motion_vote_field
           {
-            title: I18n.t(:"help.have_your_say"),
+            title: I18n.t(:"webhooks.slack.have_your_say"),
             value: [:yes, :abstain, :no, :block].map { |pos| slack_link_for(object, pos) }.join( ' . ')
           }
         end
@@ -51,10 +53,11 @@ module Plugins
         def slack_link_for(model, text = nil, params = {})
           params.merge!(default_url_options)
           case model
-          when Group      then "<#{group_url(model, params)     }|#{text || model.name}>"
-          when Discussion then "<#{discussion_url(model, params)}|#{text || model.title}>"
-          when Motion     then "<#{motion_url(model, params)    }|#{text || model.name}>"
-          when Comment    then "<#{comment_url(model, params)   }|#{text || model.body}>"
+          when User       then "<#{user_url(model.username, params)}|#{text || model.name}>"
+          when Group      then "<#{group_url(model, params)        }|#{text || model.name}>"
+          when Discussion then "<#{discussion_url(model, params)   }|#{text || model.title}>"
+          when Motion     then "<#{motion_url(model, params)       }|#{text || model.name}>"
+          when Comment    then "<#{discussion_url(model.discussion, params.merge(comment: model.id))}|#{text || model.body}>"
           end
         end
 

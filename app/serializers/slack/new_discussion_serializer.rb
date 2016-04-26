@@ -1,7 +1,7 @@
 class Plugins::LoomioWebhooks::Slack::NewDiscussionSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
 
   def attachment_title
-    "<#{slack_link_for(object)}|#{object.title}>"
+    slack_link_for(object)
   end
 
   def attachment_text
@@ -15,7 +15,11 @@ class Plugins::LoomioWebhooks::Slack::NewDiscussionSerializer < Plugins::LoomioW
   private
 
   def text_options
-    { author: object.author.name, name: slack_link_for(object), group: slack_link_for(object.group) }
+    {
+      author: slack_link_for(object.author),
+      name:   slack_link_for(object),
+      group:  slack_link_for(object.group)
+    }
   end
 
 end
