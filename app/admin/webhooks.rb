@@ -51,7 +51,7 @@ ActiveAdmin.register Webhook do
       f.input :hookable_type
       f.input :uri
       f.input :kind
-      f.input :event_types, as: :check_boxes, collection: ['new_discussion', 'new_motion', 'motion_closing_soon', 'motion_closed', 'motion_outcome_created', 'motion_outcome_updated', 'new_vote']
+      f.input :event_types, as: :check_boxes, collection: ['new_discussion', 'new_motion', 'motion_closing_soon', 'motion_closed', 'motion_closed_by_user', 'motion_outcome_created', 'motion_outcome_updated', 'new_vote', 'new_comment']
     end
     f.actions
   end
