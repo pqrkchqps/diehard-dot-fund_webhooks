@@ -5,10 +5,10 @@ module Plugins
       setup! :loomio_webhooks do |plugin|
         plugin.enabled = true
 
-        plugin.use_class "app/models/webhooks/slack/base"
-        plugin.use_class_directory "app/models/webhooks/slack/"
         plugin.use_class "app/models/webhook"
         plugin.use_class "app/services/webhook_service"
+        plugin.use_class "app/serializers/slack/base_serializer"
+        plugin.use_class_directory "app/serializers/slack/"
         plugin.use_class "app/admin/webhooks"
 
         plugin.use_database_table :webhooks do |table|
@@ -19,12 +19,26 @@ module Plugins
           table.timestamps
         end
 
+        plugin.extend_class(Group)   { has_many :webhooks, as: :hookable }
+        plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Vote)    { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Discussion) do
+          def webhooks
+            Webhook.where("(hookable_type = 'Discussion' AND hookable_id = :id) OR
+                           (hookable_type = 'Group'      AND hookable_id = :group_id)",
+                           id: id, group_id: group_id)
+          end
+        end
+
         plugin.use_events do |event_bus|
           event_bus.listen('motion_outcome_created_event',
                            'motion_outcome_updated_event',
                            'motion_closing_soon_event',
+                           'motion_closed_by_user_event',
                            'motion_closed_event',
                            'new_discussion_event',
+                           'new_comment_event',
                            'new_motion_event',
                            'new_vote_event') { |event| WebhookService.delay.publish!(event) }
         end
