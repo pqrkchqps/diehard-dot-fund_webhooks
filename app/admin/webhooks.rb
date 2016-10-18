@@ -37,13 +37,12 @@ ActiveAdmin.register Webhook do
     column :hookable_id
     column :hookable_type
     column 'Hookable Name' do |w|
-      if w.hookable_type == 'Group'
-        Group.find(w.hookable_id).name
-      end
+      w.hookable.name if w.hookable.respond_to?(:name)
     end
     column :uri
     column :kind
     column :event_types
+    actions
   end
 
   show do |webhook|
