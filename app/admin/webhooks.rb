@@ -33,6 +33,18 @@ ActiveAdmin.register Webhook do
   filter :event_types
   filter :created_at
 
+  index do |webhook|
+    column :hookable_id
+    column :hookable_type
+    column 'Hookable Name' do |w|
+      w.hookable.name if w.hookable.respond_to?(:name)
+    end
+    column :uri
+    column :kind
+    column :event_types
+    actions
+  end
+
   show do |webhook|
     attributes_table do
       row :hookable_id
