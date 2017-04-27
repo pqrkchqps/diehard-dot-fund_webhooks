@@ -57,6 +57,8 @@ module Plugins
           when Group      then "<#{group_url(model, params)        }|#{text || model.name}>"
           when Discussion then "<#{discussion_url(model, params)   }|#{text || model.title}>"
           when Motion     then "<#{motion_url(model, params)       }|#{text || model.name}>"
+          when Poll       then "<#{poll_url(model, params)         }|#{text || model.title}>"
+          when Outcome    then "<#{poll_url(model.poll, params)    }|#{text || model.poll.title}>"
           when Comment    then "<#{discussion_url(model.discussion, params.merge(comment: model.id))}|#{text || model.body}>"
           end
         end

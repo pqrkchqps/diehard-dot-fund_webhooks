@@ -23,6 +23,8 @@ module Plugins
         plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
         plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
         plugin.extend_class(Vote)    { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Poll)    { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Outcome) { delegate :webhooks, to: :discussion }
         plugin.extend_class(Discussion) do
           def webhooks
             Webhook.where("(hookable_type = 'Discussion' AND hookable_id = :id) OR
@@ -40,7 +42,11 @@ module Plugins
                            'new_discussion_event',
                            'new_comment_event',
                            'new_motion_event',
-                           'new_vote_event') { |event| WebhookService.delay.publish!(event) }
+                           'new_vote_event',
+                           'poll_created_event',
+                           'poll_closing_soon_event',
+                           'poll_expired_event',
+                           'outcome_created_event') { |event| WebhookService.delay.publish!(event) }
         end
       end
     end
