@@ -20,7 +20,7 @@ module Plugins
         end
 
         plugin.extend_class(Group)   { has_many :webhooks, as: :hookable }
-        [Motion, Comment, Vote, Poll, Outcome, Discussion].each do |model|
+        [::Motion, ::Comment, ::Vote, ::Poll, ::Outcome, ::Discussion].each do |model|
           plugin.extend_class(model) { has_many :webhooks, through: :group }
         end
 
