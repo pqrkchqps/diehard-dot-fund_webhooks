@@ -23,7 +23,7 @@ module Plugins
         plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
         plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
         plugin.extend_class(Vote)    { delegate :webhooks, to: :discussion }
-        plugin.extend_class(Poll)    { delegate :webhooks, to: :discussion }
+        plugin.extend_class(Poll)    { delegate :webhooks, to: :discussion, allow_nil: true }
         plugin.extend_class(Outcome) { delegate :webhooks, to: :discussion }
         plugin.extend_class(Discussion) do
           def webhooks
