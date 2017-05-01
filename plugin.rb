@@ -20,17 +20,8 @@ module Plugins
         end
 
         plugin.extend_class(Group)   { has_many :webhooks, as: :hookable }
-        plugin.extend_class(Motion)  { delegate :webhooks, to: :discussion }
-        plugin.extend_class(Comment) { delegate :webhooks, to: :discussion }
-        plugin.extend_class(Vote)    { delegate :webhooks, to: :discussion }
-        plugin.extend_class(Poll)    { delegate :webhooks, to: :discussion, allow_nil: true }
-        plugin.extend_class(Outcome) { delegate :webhooks, to: :discussion }
-        plugin.extend_class(Discussion) do
-          def webhooks
-            Webhook.where("(hookable_type = 'Discussion' AND hookable_id = :id) OR
-                           (hookable_type = 'Group'      AND hookable_id = :group_id)",
-                           id: id, group_id: group_id)
-          end
+        [Motion, Comment, Vote, Poll, Outcome, Discussion].each do |model|
+          plugin.extend_class(model) { has_many :webhooks, through: :group }
         end
 
         plugin.use_events do |event_bus|
