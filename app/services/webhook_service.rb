@@ -1,7 +1,7 @@
 class Plugins::LoomioWebhooks::WebhookService
 
   def self.publish!(event)
-    event.eventable.webhooks.each do |webhook|
+    Array(event.eventable&.webhooks).each do |webhook|
       next unless webhook.event_types.include? event.kind
       HTTParty.post webhook.uri, body: payload_for(webhook, event), headers: webhook.headers
     end
