@@ -1,4 +1,4 @@
-class Plugins::Diehard_FundWebhooks::Slack::OutcomeCreatedSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
+class Plugins::DiehardFundWebhooks::Slack::OutcomeCreatedSerializer < Plugins::DiehardFundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.poll.title}*\n#{object.statement}\n"

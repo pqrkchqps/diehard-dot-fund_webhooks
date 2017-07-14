@@ -1,4 +1,4 @@
-class Plugins::Diehard_FundWebhooks::Slack::PollClosingSoonSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
+class Plugins::DiehardFundWebhooks::Slack::PollClosingSoonSerializer < Plugins::DiehardFundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.title}*\n#{object.details}\n"

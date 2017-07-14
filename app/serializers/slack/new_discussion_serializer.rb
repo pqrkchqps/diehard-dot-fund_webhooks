@@ -1,4 +1,4 @@
-class Plugins::Diehard_FundWebhooks::Slack::NewDiscussionSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
+class Plugins::DiehardFundWebhooks::Slack::NewDiscussionSerializer < Plugins::DiehardFundWebhooks::Slack::BaseSerializer
 
   def attachment_title
     slack_link_for(object)

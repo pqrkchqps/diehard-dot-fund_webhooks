@@ -1,5 +1,5 @@
 module Plugins
-  module Diehard_FundWebhooks
+  module DiehardFundWebhooks
     module Slack
       class BaseSerializer < ActiveModel::Serializer
         include Routing
@@ -10,7 +10,7 @@ module Plugins
         end
 
         def username
-          "Diehard_Fund Bot"
+          "DiehardFund Bot"
         end
 
         def attachments

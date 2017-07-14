@@ -1,4 +1,4 @@
-class Plugins::Diehard_FundWebhooks::Slack::MotionClosedByUserSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
+class Plugins::DiehardFundWebhooks::Slack::MotionClosedByUserSerializer < Plugins::DiehardFundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.name}*\n#{object.description}\n"

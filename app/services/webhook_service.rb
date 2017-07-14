@@ -1,4 +1,4 @@
-class Plugins::Diehard_FundWebhooks::WebhookService
+class Plugins::DiehardFundWebhooks::WebhookService
 
   def self.publish!(event)
     Array(event.eventable&.webhooks).each do |webhook|
@@ -13,7 +13,7 @@ class Plugins::Diehard_FundWebhooks::WebhookService
   private_class_method :payload_for
 
   def self.serializer_for(webhook, event)
-    [:Plugins, :Diehard_FundWebhooks, webhook.kind.classify, "#{event.kind.classify}Serializer"].join('::').constantize
+    [:Plugins, :DiehardFundWebhooks, webhook.kind.classify, "#{event.kind.classify}Serializer"].join('::').constantize
   end
   private_class_method :serializer_for
 

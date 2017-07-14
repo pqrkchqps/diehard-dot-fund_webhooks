@@ -1,5 +1,5 @@
 module Plugins
-  module Diehard_FundWebhooks
+  module DiehardFundWebhooks
     class Plugin < Plugins::Base
 
       setup! 'diehard-dot-fund_webhooks' do |plugin|
