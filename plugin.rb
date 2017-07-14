@@ -5,11 +5,11 @@ module Plugins
       setup! 'diehard-dot-fund_webhooks' do |plugin|
         plugin.enabled = true
 
-        plugin.use_class "app/models/webhook"
-        plugin.use_class "app/services/webhook_service"
-        plugin.use_class "app/serializers/slack/base_serializer"
-        plugin.use_class_directory "app/serializers/slack/"
-        plugin.use_class "app/admin/webhooks"
+        plugin.use_class "models/webhook"
+        plugin.use_class "services/webhook_service"
+        plugin.use_class "serializers/slack/base_serializer"
+        plugin.use_class_directory "serializers/slack/"
+        plugin.use_class "admin/webhooks"
 
         plugin.use_database_table :webhooks do |table|
           table.references :hookable, polymorphic: true, index: true
