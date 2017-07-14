@@ -1,5 +1,5 @@
 module Plugins
-  module LoomioWebhooks
+  module Diehard_FundWebhooks
     module Slack
       class BaseSerializer < ActiveModel::Serializer
         include Routing
@@ -10,7 +10,7 @@ module Plugins
         end
 
         def username
-          "Loomio Bot"
+          "Diehard_Fund Bot"
         end
 
         def attachments
@@ -36,7 +36,7 @@ module Plugins
         def attachment_fallback; end
         def attachment_color;    end
         def attachment_fields
-          [view_it_on_loomio]
+          [view_it_on_diehard_fund]
         end
 
         def motion_vote_field
@@ -46,7 +46,7 @@ module Plugins
           }
         end
 
-        def view_it_on_loomio(model = object, text = I18n.t(:"webhooks.slack.view_it_on_loomio"))
+        def view_it_on_diehard_fund(model = object, text = I18n.t(:"webhooks.slack.view_it_on_diehard_fund"))
           { value: slack_link_for(model, text) }
         end
 

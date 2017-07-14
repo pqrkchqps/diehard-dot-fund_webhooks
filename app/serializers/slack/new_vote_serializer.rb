@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::NewVoteSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::Diehard_FundWebhooks::Slack::NewVoteSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.position}*\n#{object.statement}\n"

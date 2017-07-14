@@ -1,8 +1,8 @@
 module Plugins
-  module LoomioWebhooks
+  module Diehard_FundWebhooks
     class Plugin < Plugins::Base
 
-      setup! :loomio_webhooks do |plugin|
+      setup! :diehard_fund_webhooks do |plugin|
         plugin.enabled = true
 
         plugin.use_class "app/models/webhook"

@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::NewDiscussionSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::Diehard_FundWebhooks::Slack::NewDiscussionSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
 
   def attachment_title
     slack_link_for(object)

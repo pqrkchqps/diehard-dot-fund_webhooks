@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::MotionOutcomeUpdatedSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::Diehard_FundWebhooks::Slack::MotionOutcomeUpdatedSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.name}*\n#{object.outcome}\n"

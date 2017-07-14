@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::NewCommentSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::Diehard_FundWebhooks::Slack::NewCommentSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     object.body

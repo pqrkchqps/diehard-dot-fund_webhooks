@@ -1,4 +1,4 @@
-class Plugins::LoomioWebhooks::Slack::PollExpiredSerializer < Plugins::LoomioWebhooks::Slack::BaseSerializer
+class Plugins::Diehard_FundWebhooks::Slack::PollExpiredSerializer < Plugins::Diehard_FundWebhooks::Slack::BaseSerializer
 
   def attachment_fallback
     "*#{object.title}*\n#{object.details}\n"
