@@ -2,7 +2,7 @@ module Plugins
   module Diehard_FundWebhooks
     class Plugin < Plugins::Base
 
-      setup! :diehard_fund_webhooks do |plugin|
+      setup! 'diehard-dot-fund_webhooks' do |plugin|
         plugin.enabled = true
 
         plugin.use_class "app/models/webhook"
